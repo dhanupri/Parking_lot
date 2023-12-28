@@ -39,4 +39,20 @@ public class ParkingLot_AvailableSpaceTest {
             Assert.assertEquals(available, ParkingService_JDBC.Total_slots());
         }
     }
+    //uc4-redirect to airport staff
+    @Test
+    public void TestParkingFull_ToRedirectAirportStaff(){
+        List<List<String>> arr=new ArrayList<>();
+        arr.add(List.of("2","Tn1236","deepakkumar","11:00pm"));
+        ParkingLot parkingLot=new ParkingLot(60);
+        AirportSecurity airportSecurity=new AirportSecurity();
+        int available=parkingLot.getCapacity()-arr.size();
+        if(available ==0){
+            Assert.assertEquals("Parking lot is full. Redirecting security staff.",airportSecurity.update());
+        }
+        else {
+            Assert.assertEquals(available, ParkingService_JDBC.Total_slots());
+        }
+
+    }
 }
