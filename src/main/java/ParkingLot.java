@@ -1,5 +1,5 @@
 interface parking_lot_details{
-    public void available_slots(int number_of_slots_parked);
+    public Object available_slots(int number_of_slots_parked);
 }
 public class ParkingLot implements  parking_lot_details {
     public int capacity=60;
@@ -8,6 +8,9 @@ public class ParkingLot implements  parking_lot_details {
         this.capacity=capacity;
         this.availableSpaces=capacity;
     }
+
+
+
     public int getCapacity() {
         return capacity;
     }
@@ -22,7 +25,13 @@ public class ParkingLot implements  parking_lot_details {
     }
 
     @Override
-    public void available_slots(int number_of_slots_parked) {
+    public String available_slots(int number_of_slots_parked) {
+        if(ParkingService_JDBC.Total_slots()!=0){
+            System.out.println("Parking lot has space again");
+            return "Parking lot has space again";
+        }
 
+        return null;
     }
+
 }
