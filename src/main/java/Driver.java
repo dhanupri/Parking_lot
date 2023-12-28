@@ -3,7 +3,7 @@ public class Driver {
     public String inTime;
     public String Name;
     public  int slotNo;
-   Driver(String carNo,String Name,String inTime,int slotNo){
+   Driver(int slotNo,String carNo,String Name,String inTime){
        this.carNo=carNo;
        this.Name=Name;
        this.inTime=inTime;

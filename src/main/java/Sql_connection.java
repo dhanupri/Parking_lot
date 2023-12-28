@@ -4,7 +4,7 @@ public class Sql_connection {
     public static Connection getCon(){
         Connection con=null;
         try{
-            String jdbcURL = "jdbc:mysql://localhost:3306/cab_invoice_generator?useSSL=false";
+            String jdbcURL = "jdbc:mysql://localhost:3306/parking_lot?useSSL=false";
             String userName = "root";
             String password = "Rohitsharma45";
             Connection connection;
