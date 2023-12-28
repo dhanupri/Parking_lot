@@ -59,6 +59,31 @@ public class ParkingService_JDBC {
             throw new RuntimeException(e);
         }
     }
+    //number of slots parked
+    public static int Total_slots(){
+        Connection connection=null;
+        try{
+            connection=Sql_connection.getCon();
+            PreparedStatement ps=connection.prepareStatement("SELECT COUNT(*) AS row_count FROM Driver ");
+            ResultSet resultSet=ps.executeQuery();
+            int rowcount = 0;
+            if(resultSet.next()) {
+                rowcount = resultSet.getInt("row_count");
+                System.out.println("the total number of slots filled" + rowcount);
+            }
+            ParkingLot parkingLot=new ParkingLot(60);
+            parkingLot.setAvailableSpaces(parkingLot.getCapacity()-rowcount);
+            if (parkingLot.getAvailableSpaces()==0){
+                System.out.println("The parkings are full");
+            }
+            else {
+                System.out.println("The number of slots availabe:"+parkingLot.getAvailableSpaces());
+            }
+            return parkingLot.getAvailableSpaces();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
 }

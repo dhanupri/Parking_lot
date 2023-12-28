@@ -1,5 +1,8 @@
-public class ParkingLot {
-    public   int capacity;
+interface parking_lot_details{
+    public void available_slots(int number_of_slots_parked);
+}
+public class ParkingLot implements  parking_lot_details {
+    public int capacity=60;
     public int availableSpaces;
     ParkingLot(int capacity){
         this.capacity=capacity;
@@ -16,5 +19,10 @@ public class ParkingLot {
     }
     public void setAvailableSpaces(int availableSpaces) {
         this.availableSpaces = availableSpaces;
+    }
+
+    @Override
+    public void available_slots(int number_of_slots_parked) {
+
     }
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingLot_AvailableSpaceTest {
+    //uc1- check parking
     @Test
     public void TestParkingCheck(){
         List<List<String>> arr=new ArrayList<>();
@@ -16,11 +17,26 @@ public class ParkingLot_AvailableSpaceTest {
         ParkingService_JDBC.insertParking_details(driver1);
         Assert.assertEquals(arr,ParkingService_JDBC.Display());
     }
+    //uc2 -unpark
     @Test
     public void TestUnPark(){
         ParkingService_JDBC.Delete(1);
         List<List<String>> arr=new ArrayList<>();
         arr.add(List.of("2","Tn1236","deepakkumar","11:00pm"));
         Assert.assertEquals(arr,ParkingService_JDBC.Display());
+    }
+    //uc3 - check if parking is full
+    @Test
+    public  void  TestParkingFull(){
+        List<List<String>> arr=new ArrayList<>();
+        arr.add(List.of("2","Tn1236","deepakkumar","11:00pm"));
+        ParkingLot parkingLot=new ParkingLot(60);
+        int available=parkingLot.getCapacity()-arr.size();
+        if(available ==0){
+            Assert.assertEquals(0,ParkingService_JDBC.Total_slots());
+        }
+        else {
+            Assert.assertEquals(available, ParkingService_JDBC.Total_slots());
+        }
     }
 }
