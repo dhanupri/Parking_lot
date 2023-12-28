@@ -1,5 +1,6 @@
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ParkingService_JDBC {
     //insert values into table
@@ -19,27 +20,45 @@ public class ParkingService_JDBC {
             throw new RuntimeException(e);
         }
     }
-    public static ArrayList<Integer> Display(){
-        ArrayList<Integer> arr1=new ArrayList<>();
+    public static List<List<String>> Display(){
+        List<List<String>> arr2=new ArrayList<>();
+
         Connection connection=null;
         try {
             connection = Sql_connection.getCon();
             Statement ps1 = connection.createStatement();
             ResultSet resultSet = ps1.executeQuery("select * from Driver");
             while (resultSet.next()) {
+                ArrayList<String> arr1=new ArrayList<>();
                 int slot_id = resultSet.getInt("slotNo");
                 String cab_no = resultSet.getNString("Cab_No");
                 String Name = resultSet.getNString("driverName");
                 String inTime = resultSet.getNString("inTime");
-                Driver driver1 = new Driver(slot_id, cab_no, Name, inTime);
-                arr1.add(slot_id);
+                arr1.add(String.valueOf(slot_id));
+                arr1.add(cab_no);
+                arr1.add(Name);
+                arr1.add(inTime);
+                arr2.add(arr1);
             }
-            return arr1;
+            return arr2;
         }catch (SQLException e){
             e.printStackTrace();
         }
 
-        return arr1;
+        return null;
     }
+    //delete the detail using a slot number
+    public static void Delete(int soltNumber){
+        Connection connection=null;
+        try {
+            connection=Sql_connection.getCon();
+            PreparedStatement ps=connection.prepareStatement("delete from Driver where slotNo=?");
+            ps.setInt(1, soltNumber);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }
