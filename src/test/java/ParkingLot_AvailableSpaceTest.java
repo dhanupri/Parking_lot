@@ -70,4 +70,24 @@ public class ParkingLot_AvailableSpaceTest {
             Assert.assertEquals("Parking lot has space again",parkingLot.available_slots(arr.size()));
         }
     }
+//   //uc-6 parkingAttendantTest
+   @Test
+    public  void parkingAttendantTest(){
+        ArrayList<ArrayList<String>> arr=new ArrayList<>();
+        ArrayList<String> arr1=new ArrayList();
+       Driver driver=new Driver(1,"Tn1234","deepak","11:00pm");
+       arr1.add(String.valueOf(driver.getSlotNo()));
+       arr1.add(driver.getCarNo());
+       arr1.add("2023-12-29 10:57:39");
+       arr.add(arr1);
+       ArrayList<String> arr2=new ArrayList<>();
+       Driver driver1=new Driver(2,"Tn1236","deepakkumar","11:00pm");
+       arr2.add(String.valueOf(driver1.getSlotNo()));
+       arr2.add(driver1.getCarNo());
+       arr2.add("2023-12-29 10:57:39");
+       arr.add(arr2);
+       Assert.assertEquals(arr,ParkingService_JDBC.DisplayParking_details());
+    }
+
+
 }

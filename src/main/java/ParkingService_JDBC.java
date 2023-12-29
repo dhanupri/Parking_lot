@@ -15,6 +15,9 @@ public class ParkingService_JDBC {
             ps.setString(3,driver.getName());
             ps.setString(4,driver.getInTime());
             ps.executeUpdate();
+            parkCar(driver.getCarNo(),driver.getSlotNo());
+
+
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -31,7 +34,7 @@ public class ParkingService_JDBC {
             while (resultSet.next()) {
                 ArrayList<String> arr1=new ArrayList<>();
                 int slot_id = resultSet.getInt("slotNo");
-                String cab_no = resultSet.getNString("Cab_No");
+                String cab_no = resultSet.getNString("Car_No");
                 String Name = resultSet.getNString("driverName");
                 String inTime = resultSet.getNString("inTime");
                 arr1.add(String.valueOf(slot_id));
@@ -84,6 +87,42 @@ public class ParkingService_JDBC {
             throw new RuntimeException(e);
         }
     }
+    public static void parkCar(String carNumber, int slotNo ) {
+        Connection connection=null;
+            try {
+                connection = Sql_connection.getCon();
+                PreparedStatement ps = connection.prepareStatement("INSERT INTO ParkedCars  VALUES (?, ?, NOW())");
+                ps.setString(1, carNumber);
+                ps.setInt(2, slotNo);
+                ps.executeUpdate();
+                System.out.println("Car parked successfully");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+    }
+    public static List<List<String>> DisplayParking_details(){
+        List<List<String>> arr2=new ArrayList<>();
 
+        Connection connection=null;
+        try {
+            connection = Sql_connection.getCon();
+            Statement ps1 = connection.createStatement();
+            ResultSet resultSet = ps1.executeQuery("select * from ParkedCars");
+            while (resultSet.next()) {
+                ArrayList<String> arr1=new ArrayList<>();
+                int slot_id = resultSet.getInt("slotNo");
+                String cab_no = resultSet.getNString("carNo");
+                String inTime = resultSet.getNString("inTime");
+                arr1.add(String.valueOf(slot_id));
+                arr1.add(cab_no);
+                arr1.add(inTime);
+                arr2.add(arr1);
+            }
+            return arr2;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
 
+        return null;
+    }
 }
