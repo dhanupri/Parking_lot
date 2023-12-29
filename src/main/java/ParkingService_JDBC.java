@@ -161,4 +161,43 @@ public class ParkingService_JDBC {
 
         return null;
     }
+    //insert in lot distribution table
+    public static void lotDistributionTable(ParkingLot parkingLot){
+        Connection connection=null;
+        try {
+            connection = Sql_connection.getCon();
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO  ParkingLots VALUES(?,?,?)");
+            ps.setInt(1,parkingLot.getLotId());
+            ps.setInt(2,parkingLot.getCapacity());
+            ps.setInt(3,parkingLot.getAvailableSpaces());
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static List<List<Integer>> DisplayParkinglot_details() {
+        List<List<Integer>> arr2 = new ArrayList<>();
+
+        Connection connection = null;
+        try {
+            connection = Sql_connection.getCon();
+            Statement ps1 = connection.createStatement();
+            ResultSet resultSet = ps1.executeQuery("select * from ParkingLots ");
+            while (resultSet.next()) {
+                ArrayList<Integer> arr1 = new ArrayList<>();
+                int lot= resultSet.getInt("lotId");
+               int capacity = resultSet.getInt("capacity");
+                int available = resultSet.getInt("available");
+                arr1.add(lot);
+                arr1.add(capacity);
+                arr1.add(available);
+                arr2.add(arr1);
+            }
+            return arr2;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return arr2;
+    }
 }

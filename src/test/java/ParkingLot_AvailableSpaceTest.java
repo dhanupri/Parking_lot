@@ -98,5 +98,22 @@ public class ParkingLot_AvailableSpaceTest {
     public void TestCarInTime(){
         Assert.assertEquals("10:57:39",ParkingService_JDBC.FindTheTime("Tn1234"));
     }
+    //uc9-lots distribution
+    @Test
+    public void TestLotsDistribution(){
+        ParkingLot parkingLot=new ParkingLot(1,60,60);
+        ParkingLot parkingLot1=new ParkingLot(2,30,30);
+        ParkingLot parkingLot2=new ParkingLot(3,50,50);
+        ParkingService_JDBC.lotDistributionTable(parkingLot);
+        ParkingService_JDBC.lotDistributionTable(parkingLot1);
+        ParkingService_JDBC.lotDistributionTable(parkingLot2);
+        List<List<Integer>> arr=new ArrayList<>();
+        arr.add( List.of(1,60,60));
+        arr.add( List.of(2,30,30));
+        arr.add( List.of(3,50,50));
+        Assert.assertEquals(arr,ParkingService_JDBC.DisplayParkinglot_details());
+
+
+    }
 
 }

@@ -5,6 +5,8 @@ public class ParkingService {
         Scanner sc=new Scanner(System.in);
         ParkingLot parkingLot=new ParkingLot(60);
         System.out.println("Welcome to Car Parking!!!!");
+//        int numOfparkingLots=3;
+
 
     }
 }
