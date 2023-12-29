@@ -93,5 +93,10 @@ public class ParkingLot_AvailableSpaceTest {
     public  void TestToFindTheCar(){
         Assert.assertEquals(1,ParkingService_JDBC.FindTheCar("Tn1234"));
     }
+    //uc8-car in time
+    @Test
+    public void TestCarInTime(){
+        Assert.assertEquals("10:57:39",ParkingService_JDBC.FindTheTime("Tn1234"));
+    }
 
 }
