@@ -87,6 +87,7 @@ public class ParkingService_JDBC {
             throw new RuntimeException(e);
         }
     }
+    //park a car
     public static void parkCar(String carNumber, int slotNo ) {
         Connection connection=null;
             try {
@@ -99,6 +100,41 @@ public class ParkingService_JDBC {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+    }
+    //find the car
+    public static int FindTheCar(String name){
+        Connection connection=null;
+        try {
+            connection=Sql_connection.getCon();
+            PreparedStatement ps= connection.prepareStatement("select slotNo from ParkedCars  where carNo=?");
+            ps.setString(1,name);
+            ResultSet resultSet=ps.executeQuery();
+            if(resultSet.next()){
+                return resultSet.getInt("slotNo");
+            }
+
+            return 0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    //find the time when car is parked
+    public static String FindTheTime(String name){
+        Connection connection=null;
+        try {
+            connection=Sql_connection.getCon();
+            PreparedStatement ps= connection.prepareStatement("select * from ParkedCars  where carNo=?");
+            ps.setString(1,name);
+            ResultSet resultSet=ps.executeQuery();
+            if(resultSet.next()){
+                return String.valueOf(resultSet.getTime("inTime"));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
     public static List<List<String>> DisplayParking_details(){
         List<List<String>> arr2=new ArrayList<>();

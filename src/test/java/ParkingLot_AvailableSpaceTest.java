@@ -88,6 +88,10 @@ public class ParkingLot_AvailableSpaceTest {
        arr.add(arr2);
        Assert.assertEquals(arr,ParkingService_JDBC.DisplayParking_details());
     }
-
+    //uc7 find the car in which slot
+    @Test
+    public  void TestToFindTheCar(){
+        Assert.assertEquals(1,ParkingService_JDBC.FindTheCar("Tn1234"));
+    }
 
 }
