@@ -101,19 +101,17 @@ public class ParkingLot_AvailableSpaceTest {
     //uc9-lots distribution
     @Test
     public void TestLotsDistribution(){
-        ParkingLot parkingLot=new ParkingLot(1,60,60);
-        ParkingLot parkingLot1=new ParkingLot(2,30,30);
-        ParkingLot parkingLot2=new ParkingLot(3,50,50);
+        ParkingLot parkingLot=new ParkingLot(1,"handicap",60,60);
+        ParkingLot parkingLot1=new ParkingLot(2,"large cars",30,30);
+        ParkingLot parkingLot2=new ParkingLot(3,"cars",50,50);
         ParkingService_JDBC.lotDistributionTable(parkingLot);
         ParkingService_JDBC.lotDistributionTable(parkingLot1);
         ParkingService_JDBC.lotDistributionTable(parkingLot2);
-        List<List<Integer>> arr=new ArrayList<>();
-        arr.add( List.of(1,60,60));
-        arr.add( List.of(2,30,30));
-        arr.add( List.of(3,50,50));
+        List<List<String>> arr=new ArrayList<>();
+        arr.add( List.of("1","handicap","60","60"));
+        arr.add( List.of("2","large cars","30","30"));
+        arr.add( List.of("3","cars","50","50"));
         Assert.assertEquals(arr,ParkingService_JDBC.DisplayParkinglot_details());
-
-
     }
 
 }

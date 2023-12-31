@@ -166,18 +166,21 @@ public class ParkingService_JDBC {
         Connection connection=null;
         try {
             connection = Sql_connection.getCon();
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO  ParkingLots VALUES(?,?,?)");
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO  ParkingLots VALUES(?,?,?,?)");
             ps.setInt(1,parkingLot.getLotId());
-            ps.setInt(2,parkingLot.getCapacity());
-            ps.setInt(3,parkingLot.getAvailableSpaces());
+            ps.setString(2,parkingLot.getLot_name());
+//            ps.setString(3,parkingLot.getCar_name());
+//            ps.setString(4,parkingLot.getCar_no());
+            ps.setInt(3,parkingLot.getCapacity());
+            ps.setInt(4,parkingLot.getAvailableSpaces());
             ps.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-    public static List<List<Integer>> DisplayParkinglot_details() {
-        List<List<Integer>> arr2 = new ArrayList<>();
+    public static List<List<String>> DisplayParkinglot_details() {
+        List<List<String>> arr2 = new ArrayList<>();
 
         Connection connection = null;
         try {
@@ -185,13 +188,19 @@ public class ParkingService_JDBC {
             Statement ps1 = connection.createStatement();
             ResultSet resultSet = ps1.executeQuery("select * from ParkingLots ");
             while (resultSet.next()) {
-                ArrayList<Integer> arr1 = new ArrayList<>();
+                ArrayList<String> arr1 = new ArrayList<>();
                 int lot= resultSet.getInt("lotId");
+                String name=resultSet.getString("lot_name");
+//                String car_name=resultSet.getString("car_name");
+//                String car_no=resultSet.getNString("carNo");
                int capacity = resultSet.getInt("capacity");
                 int available = resultSet.getInt("available");
-                arr1.add(lot);
-                arr1.add(capacity);
-                arr1.add(available);
+                arr1.add(String.valueOf(lot));
+                arr1.add(name);
+//                arr1.add(car_name);
+//                arr1.add(car_no);
+                arr1.add(String.valueOf(capacity));
+                arr1.add(String.valueOf(available));
                 arr2.add(arr1);
             }
             return arr2;
